@@ -10,25 +10,46 @@ const personalMovieDB = {
     privat: false
 };
 
-if (personalMovieDB.count <= 10) {
-    alert('Просмотрено довольно мало фильмов');
-} else if (personalMovieDB.count >= 10 && personalMovieDB.count <=30) {
-    alert('Вы классический зритель');
-} else if (personalMovieDB.count > 30) {
-    alert('Вы киноман');
-} else {
-    alert('Произошла ошибка');
-}
+howMoviesSaw();
+lastSawMovies();
+showMyDB(personalMovieDB.privat);
+writeYourGenres(personalMovieDB.gengers);
 
-for (let i = 0; i < 2; i++) {
-    const a = prompt('Один из последних просмотренных фильмов', 'Название');
-    const b = prompt('На сколько оцените его', 'Оценка');
-
-    if (a && b && a.length < 50) {
-        personalMovieDB.movies[a] = b;
+function howMoviesSaw() {
+    if (personalMovieDB.count <= 10) {
+        alert('Просмотрено довольно мало фильмов');
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count <=30) {
+        alert('Вы классический зритель');
+    } else if (personalMovieDB.count > 30) {
+        alert('Вы киноман');
     } else {
-        i--;
+        alert('Произошла ошибка');
     }
 }
 
-console.log(personalMovieDB);
+function lastSawMovies() {
+    for (let i = 0; i < 2; i++) {
+        const a = prompt('Один из последних просмотренных фильмов', 'Название');
+        const b = prompt('На сколько оцените его', 'Оценка');
+    
+        if (a && b && a.length < 50) {
+            personalMovieDB.movies[a] = b;
+        } else {
+            i--;
+        }
+    }
+}
+
+function showMyDB(checkPrivat) {
+    if (!checkPrivat) {
+        console.log(personalMovieDB);
+    }
+}
+
+function writeYourGenres(createFavoriteGenger) {
+    for (let i = 0; i < 3; i++) {
+        const a = prompt(`Ваш любимый жанр под номером ${i+1}`, ``);
+        createFavoriteGenger[i] = a;
+    }
+    return createFavoriteGenger;
+}
