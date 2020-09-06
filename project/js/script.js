@@ -21,8 +21,8 @@ const personalMovieDB = {
     },
     lastSawMovies: function () {
         for (let i = 0; i < 2; i++) {
-            const a = prompt('Один из последних просмотренных фильмов', 'Название');
-            const b = prompt('На сколько оцените его', 'Оценка');
+            const a = prompt('Один из последних просмотренных фильмов', '');
+            const b = prompt('На сколько оцените его', '');
         
             if (a && b && a.length < 50) {
                 personalMovieDB.movies[a] = b;
@@ -39,8 +39,16 @@ const personalMovieDB = {
     writeYourGenres: function (createFavoriteGenger) {
         for (let i = 0; i < 3; i++) {
             const a = prompt(`Ваш любимый жанр под номером ${i+1}`, ``);
-            createFavoriteGenger[i] = a;
+
+            if (a && a.length < 50) {
+                createFavoriteGenger[i] = a;
+            } else {
+                i--; 
+            }
         }
+        personalMovieDB.gengers.forEach(function (item, i) {
+            console.log(`Любимый жанр ${++i} - это ${item}`);
+        });
         return createFavoriteGenger;
     },
     toggleVisibleMyDB: function (checkOptionPrivat) {
@@ -49,13 +57,11 @@ const personalMovieDB = {
         } else {
             personalMovieDB.privat = false;
         }
-    }
+    },
 };
 
-//personalMovieDB.howMoviesSaw();
-//personalMovieDB.lastSawMovies();
+personalMovieDB.howMoviesSaw();
+personalMovieDB.lastSawMovies();
 personalMovieDB.toggleVisibleMyDB(personalMovieDB.privat);
-//personalMovieDB.showMyDB(personalMovieDB.privat);
-//personalMovieDB.writeYourGenres(personalMovieDB.gengers);
-
-console.log(personalMovieDB.privat);
+personalMovieDB.showMyDB(personalMovieDB.privat);
+personalMovieDB.writeYourGenres(personalMovieDB.gengers);
